@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const Contact = () => {
   return (
     <div
-      className="relative px-12 w-full flex flex-col  lg:flex-row h-auto justify-between bg-cover pt-32 bg-center pb-12"
+      className="relative md:px-12 w-full flex flex-col  lg:flex-row h-auto justify-between bg-cover pt-32 bg-center pb-12"
       style={{ backgroundImage: "url(/contactus/contactimg.jpeg)" }}
     >
       {/* Overlay for better text visibility */}

@@ -265,7 +265,9 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <Link href="/contactus" passHref>
+        <Link href="/contactus"
+        className="md:block hidden"
+        passHref>
           <button className="button-86 font-medium">
             Contact Us{" "}
           </button>
