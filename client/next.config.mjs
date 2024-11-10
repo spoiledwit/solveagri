@@ -10,8 +10,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "kind-victory-5324fb6493.strapiapp.com", // Replace with your actual Strapi domain
-        pathname: "/uploads/**/*",
+        hostname: "**",
       },
     ],
   },

@@ -63,44 +63,54 @@ export default function ServicePage() {
     }
   }
 
-  async function fetchAllServices() {
+  const fetchAllServices = async () => {
     try {
+      setIsLoading(true);
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-      const path = `/api/services`;
-  
-      const url = new URL(path, baseUrl);
-      url.search = qs.stringify({
-        populate: '*',  // This will populate all relations
-        filters: {
-          id: {
-            $ne: serviceId
-          }
-        },
+      const path = "/api/services";
+
+      // Simplified query with populate: '*'
+      const query = qs.stringify({
+        populate: '*',
         pagination: {
-          page: 1,
-          pageSize: 6
+          pageSize: 100 // Or adjust based on your needs
         }
+      }, {
+        encodeValuesOnly: true // This helps with encoding
       });
-  
-      const res = await fetch(url.toString());
-      if (!res.ok) throw new Error("Failed to fetch services");
-  
-      const data = await res.json();
+
+      const url = `${baseUrl}${path}?${query}`;
       
-      if (data.data && Array.isArray(data.data)) {
-        const shuffledServices = [...data.data]
-          .sort(() => Math.random() - 0.5)
-          .slice(0, 6);
-        setServices(shuffledServices);
-      } else {
-        setServices([]);
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "Failed to fetch services");
       }
-  
+
+      const data = await response.json();
+
+      // Better data validation
+      if (!data || !data.data) {
+        throw new Error("Invalid data structure received");
+      }
+
+      const servicesData = Array.isArray(data.data) ? data.data : [];
+      setServices(servicesData);
+
     } catch (error: any) {
-      console.error("Error fetching services:", error);
-      setError(error.message || "An error occurred while fetching services.");
+      console.error("Service fetch error:", error);
+      setError(error.message || "An error occurred while fetching services");
+    } finally {
+      setIsLoading(false);
     }
-  }
+  };
+
 
 
   // Helper function to format image URL

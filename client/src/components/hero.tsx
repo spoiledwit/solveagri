@@ -28,7 +28,6 @@ const Hero = () => {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 });
   const [sliderData, setSliderData] = useState<SliderData | null>(null);
   const [scrollPos, setScrollPos] = useState(0);
-  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
 
   const fetchSliderData = async () => {
     try {
@@ -56,11 +55,6 @@ const Hero = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleImageLoad = (slideId: number) => {
-    //@ts-ignore
-    setLoadedImages(prev => new Set([...prev, slideId]));
-  };
-
   if (inView) {
     controls.start("visible");
   }
@@ -75,18 +69,6 @@ const Hero = () => {
   };
 
   const zoomScale = Math.max(1 - scrollPos / 1000, 0.8);
-
-  const LoadingSkeleton = () => (
-    <div className="animate-pulse w-full h-full bg-gray-200 rounded-2xl">
-      <div className="h-full w-full flex items-center justify-center">
-        <div className="space-y-8 w-full px-8 md:px-20">
-          <div className="h-8 bg-gray-300 rounded w-1/4"></div>
-          <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-          <div className="h-10 bg-gray-300 rounded w-36"></div>
-        </div>
-      </div>
-    </div>
-  );
 
   return (
     <div>
@@ -110,25 +92,20 @@ const Hero = () => {
                 <div
                   key={i}
                   className="flex w-full h-screen justify-center items-center relative"
-                >
-                  {!loadedImages.has(slide.id) && <LoadingSkeleton />}
-                  <img
-                    src={`${process.env.NEXT_PUBLIC_BASE_URL}${slide.Image.url}`}
+                > <img
+                    src={`${slide.Image.url}`}
                     alt={slide.Title}
                     className={`w-full h-full object-cover object-center transition-opacity duration-300 ${
-                      loadedImages.has(slide.id) ? 'opacity-100' : 'opacity-0'
+                       'opacity-100' 
                     }`}
                     style={{
                       borderRadius: "20px",
                       overflow: "hidden",
-                      position: loadedImages.has(slide.id) ? 'relative' : 'absolute',
+                      position: 'relative' 
                     }}
-                    onLoad={() => handleImageLoad(slide.id)}
                   />
                   <div
-                    className={`absolute bg-black bg-opacity-30 top-0 left-0 w-full h-full flex px-8 md:px-20 transition-opacity duration-300 ${
-                      loadedImages.has(slide.id) ? 'opacity-100' : 'opacity-0'
-                    }`}
+                    className={`absolute bg-black bg-opacity-30 top-0 left-0 w-full h-full flex px-8 md:px-20 transition-opacity duration-300`}
                     ref={ref}
                   >
                     <div className="flex px-2 md:px-4 gap-[20px] flex-col w-full mt-20 justify-center items-start">
@@ -137,7 +114,7 @@ const Hero = () => {
                           {slide.Title}
                         </strong>
                       </h2>
-                      <p className="text-white md:w-[60%] w-full">
+                      <p className="text-white md:w-[60%] w-full mt-[-19px]">
                         {slide.Description}
                       </p>
                       <a href="/projects">
