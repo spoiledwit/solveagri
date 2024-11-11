@@ -2,13 +2,11 @@
 import { AiOutlineMail } from "react-icons/ai";
 import {
   FaFacebookF,
-  FaTwitter,
   FaInstagram,
-  FaPinterest,
+  FaLinkedin,
 } from "react-icons/fa";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import Newsletter from "./newsletter";
 import qs from "qs";
 
 // Define the structure of a product
@@ -23,6 +21,20 @@ interface ServiceData {
   name: string;
 }
 
+// Define the structure of contact data
+interface ContactData {
+  id: number;
+
+    Address: string;
+    phone1?: string;
+    phone2?: string;
+    email?: string;
+    facebook?: string;
+    instagram?: string;
+    linkedIn?: string;
+
+}
+
 // Define the structure of the API responses
 interface ApiResponse {
   data: Product[];
@@ -32,10 +44,47 @@ interface ServiceApiResponse {
   data: ServiceData[];
 }
 
+interface ContactApiResponse {
+  data: ContactData;
+}
+
 const Footer = () => {
   // State to store unique categories and services
   const [categories, setCategories] = useState<string[]>([]);
   const [services, setServices] = useState<ServiceData[]>([]);
+  const [contactInfo, setContactInfo] = useState<any>(null);
+
+  // Fetch contact information
+  useEffect(() => {
+    const fetchContactInfo = async () => {
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+        const path = "/api/contact";
+
+        const query = qs.stringify({
+          populate: '*'
+        }, {
+          encodeValuesOnly: true
+        });
+
+        const url = `${baseUrl}${path}?${query}`;
+        
+        const response = await fetch(url);
+        
+        if (!response.ok) {
+          throw new Error("Failed to fetch contact information");
+        }
+
+        const data = await response.json();
+        console.log(data);
+        setContactInfo(data.data);
+      } catch (error) {
+        console.error("Error fetching contact information:", error);
+      }
+    };
+
+    fetchContactInfo();
+  }, []);
 
   // Fetch products and extract unique categories
   useEffect(() => {
@@ -45,12 +94,10 @@ const Footer = () => {
         const response = await fetch(`${baseUrl}/api/products`);
         const data: ApiResponse = await response.json();
 
-        // Ensure data contains the expected array of products
         if (!Array.isArray(data.data)) {
           throw new Error("Unexpected API response structure");
         }
 
-        // Extract unique categories from the products
         const uniqueCategories = Array.from(
           new Set(
             data.data.map(
@@ -78,7 +125,7 @@ const Footer = () => {
         const query = qs.stringify({
           populate: '*',
           pagination: {
-            pageSize: 5 // Limit to top 5 services
+            pageSize: 5
           }
         }, {
           encodeValuesOnly: true
@@ -112,53 +159,58 @@ const Footer = () => {
     fetchServices();
   }, []);
 
+
+
   return (
     <div className="bg-[#000517] flex flex-col items-center justify-center w-full px-4 md:px-20 xl:px-20 gap-12 md:py-20 py-8">
       <div className="h-0.5 w-1/2 bg-[#000517]" />
       <div className="flex flex-col lg:flex-row w-full gap-12">
         <div className="w-full flex flex-col gap-4">
           <h1 className="text-white text-3xl font-medium">About</h1>
-          <img className="w-[12%] lg:w-[30%]" src="/logo.png" alt="" />
+          <img className="w-[12%] lg:w-[30%]" src="/logo.png" alt="Company Logo" />
           <div className="flex flex-col gap-1">
-            <p className="text-white">
-              L – 199, Model Town Extension, Lahore (54700) Pakistan
-            </p>
-            <p className="text-white">+92 304-1115566</p>
-            <p className="text-white">+92 42 3585 6772-5</p>
-            <p className="text-white">info@solveagripak.com</p>
+            {contactInfo?.Address && (
+              <p className="text-white">{contactInfo.Address}</p>
+            )}
+            {contactInfo?.phone1 && (
+              <p className="text-white">{contactInfo.phone1}</p>
+            )}
+            {contactInfo?.phone2 && (
+              <p className="text-white">{contactInfo.phone2}</p>
+            )}
+            {contactInfo?.email && (
+              <p className="text-white">{contactInfo.email}</p>
+            )}
           </div>
           <div className="flex gap-4 w-full justify-start flex-wrap">
-            <a href="mailto:drliveluv@att.net" target="_blank" rel="noreferrer">
-              <AiOutlineMail className="text-2xl text-LG hover:text-LLG" />
-            </a>
-            <a
-              href="https://www.facebook.com/spoiledwit"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaFacebookF className="text-2xl text-LG hover:text-LLG" />
-            </a>
-            <a
-              href="https://www.twitter.com/spoiledwit"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaTwitter className="text-2xl text-LG hover:text-LLG" />
-            </a>
-            <a
-              href="https://www.instagram.com/drliveluv"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaInstagram className="text-2xl text-LG hover:text-LLG" />
-            </a>
-            <a
-              href="https://www.pinterest.com/drliveluv"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <FaPinterest className="text-2xl text-LG hover:text-LLG" />
-            </a>
+           
+            {contactInfo?.facebook && (
+              <a
+                href={contactInfo.facebook}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FaFacebookF className="text-2xl text-LG hover:text-LLG" />
+              </a>
+            )}
+            {contactInfo?.instagram && (
+              <a
+                href={contactInfo.instagram}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FaInstagram className="text-2xl text-LG hover:text-LLG" />
+              </a>
+            )}
+            {contactInfo?.linkedIn && (
+              <a
+                href={contactInfo.linkedIn}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <FaLinkedin className="text-2xl text-LG hover:text-LLG" />
+              </a>
+            )}
           </div>
         </div>
 

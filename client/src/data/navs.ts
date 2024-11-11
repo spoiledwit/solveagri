@@ -158,4 +158,9 @@ export const navLinks = [
     title: "Projects",
     href: "/projects",
   },
+  {
+    id: "sadi",
+    title: "Sadi",
+    href: "/sadi",
+  },
 ];

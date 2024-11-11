@@ -99,7 +99,7 @@ const ProductCat = () => {
                       className="relative aspect-[5/4] cursor-pointer overflow-hidden"
                     >
                       <img
-                        className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
+                        className="w-full h-full object-contain transform transition-transform duration-500 group-hover:scale-105"
                         src={product.productImage?.url?.startsWith("http")
                           ? product.productImage.url
                           : `${process.env.NEXT_PUBLIC_BASE_URL}${product.productImage?.url || "/default-image.jpg"}`

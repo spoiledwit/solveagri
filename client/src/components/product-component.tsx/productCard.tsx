@@ -31,7 +31,7 @@ export default function ProductCard({ product }: { product: Product }) {
             src={imageUrl}
             alt={product.productTitle}
             layout="fill"
-            objectFit="cover"
+            objectFit="contain"
             className="transform transition-transform duration-500 group-hover:scale-105"
             onError={(e) => {
               console.error(`Image failed to load: ${imageUrl}`);

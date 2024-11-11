@@ -254,11 +254,13 @@ const AboutUs = () => {
     >
       {/* Parent div for image and LinkedIn icon with relative positioning */}
       <div className="relative w-full overflow-hidden">
-        <img
-          src={member.image}
-          className="w-full h-full object-contain"
-          alt={member.name}
-        />
+       <div
+       className="w-[300px] h-[300px] overflow-hidden"
+       >
+<img
+src={member.image}
+alt="" />
+       </div>
 
         {/* LinkedIn icon positioned at the bottom-right corner */}
         <a
@@ -273,8 +275,8 @@ const AboutUs = () => {
 
       {/* Text content for the team member */}
       <div className="flex flex-col items-center justify-center text-white mt-4">
-        <h2 className="text-xl font-medium text-center">{member.name}</h2>
-        <p className="text-center">{member.designation}</p>
+        <h2 className="text-xl font-medium text-center whitespace-nowrap">{member.name}</h2>
+        <p className="text-center whitespace-nowrap">{member.designation}</p>
       </div>
     </AnimateToView>
   ))}

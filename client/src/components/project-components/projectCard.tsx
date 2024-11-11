@@ -17,6 +17,7 @@ const ProjectCard = ({ project }:{
     html: string;
   };
 }) => {
+  console.log(project);
   const [imageError, setImageError] = useState(false);
 
   const truncatedSubtitle = project.projSubTitle?.length > 30
@@ -33,17 +34,21 @@ const ProjectCard = ({ project }:{
 
   return (
     <Card className="group h-full overflow-hidden transition-all duration-300 hover:shadow-xl bg-white dark:bg-gray-800">
-      <Link href={`/projects/${project.documentId}`} className="block h-full">
+     
+      <Link 
+      
+      href={`/${project.category?"sadi" : "projects"}/${project.documentId}`} 
+      className="block h-full">
         <div className="relative h-48 overflow-hidden">
           <div className="absolute inset-0 bg-gray-900/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
-          <Image
+          <img
             src={!imageError ? imageUrl : '/default-image.jpg'}
             alt={project.projTitle || 'Project thumbnail'}
             width={400}
             height={300}
             className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
             onError={() => setImageError(true)}
-            priority
+            // priority
           />
           <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 translate-y-full transition-transform duration-300 group-hover:translate-y-0">
             <p className="text-white text-sm">{truncatedSubtitle}</p>
