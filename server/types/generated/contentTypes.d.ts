@@ -616,6 +616,37 @@ export interface ApiSliderSlider extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiTeammemberTeammember extends Struct.CollectionTypeSchema {
+  collectionName: 'teammembers';
+  info: {
+    displayName: 'teammember';
+    pluralName: 'teammembers';
+    singularName: 'teammember';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    Designation: Schema.Attribute.String & Schema.Attribute.Required;
+    Image: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    LinkedIn: Schema.Attribute.String & Schema.Attribute.Required;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::teammember.teammember'
+    > &
+      Schema.Attribute.Private;
+    Name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface PluginContentReleasesRelease
   extends Struct.CollectionTypeSchema {
   collectionName: 'strapi_releases';
@@ -1132,6 +1163,7 @@ declare module '@strapi/strapi' {
       'api::sadi.sadi': ApiSadiSadi;
       'api::service.service': ApiServiceService;
       'api::slider.slider': ApiSliderSlider;
+      'api::teammember.teammember': ApiTeammemberTeammember;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;
