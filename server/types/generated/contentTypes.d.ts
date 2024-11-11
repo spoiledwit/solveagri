@@ -381,21 +381,26 @@ export interface ApiContactContact extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    Address: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 150;
+      }>;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    ctaText: Schema.Attribute.String;
     email: Schema.Attribute.Email;
-    isOnSale: Schema.Attribute.Boolean;
+    facebook: Schema.Attribute.String;
+    instagram: Schema.Attribute.String;
+    linkedIn: Schema.Attribute.String;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
       'api::contact.contact'
     > &
       Schema.Attribute.Private;
-    Message: Schema.Attribute.Text;
-    phone1: Schema.Attribute.Text;
-    phone2: Schema.Attribute.Text;
+    phone1: Schema.Attribute.String;
+    phone2: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -501,6 +506,36 @@ export interface ApiProjectProject extends Struct.CollectionTypeSchema {
     projImage: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     projSubTitle: Schema.Attribute.String;
     projTitle: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiSadiSadi extends Struct.CollectionTypeSchema {
+  collectionName: 'sadis';
+  info: {
+    displayName: 'SADI';
+    pluralName: 'sadis';
+    singularName: 'sadi';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::sadi.sadi'> &
+      Schema.Attribute.Private;
+    projCategory: Schema.Attribute.String & Schema.Attribute.Required;
+    projDescription: Schema.Attribute.Blocks & Schema.Attribute.Required;
+    projld: Schema.Attribute.UID & Schema.Attribute.Required;
+    projlmage: Schema.Attribute.Media<'images'> & Schema.Attribute.Required;
+    projSubTitle: Schema.Attribute.String & Schema.Attribute.Required;
+    projTitle: Schema.Attribute.String & Schema.Attribute.Required;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1094,6 +1129,7 @@ declare module '@strapi/strapi' {
       'api::hero-image.hero-image': ApiHeroImageHeroImage;
       'api::product.product': ApiProductProduct;
       'api::project.project': ApiProjectProject;
+      'api::sadi.sadi': ApiSadiSadi;
       'api::service.service': ApiServiceService;
       'api::slider.slider': ApiSliderSlider;
       'plugin::content-releases.release': PluginContentReleasesRelease;

@@ -12,22 +12,27 @@
   },
   "pluginOptions": {},
   "attributes": {
+    "Address": {
+      "type": "string",
+      "required": true,
+      "maxLength": 150
+    },
     "phone1": {
-      "type": "text"
+      "type": "string"
     },
     "phone2": {
-      "type": "text"
-    },
-    "Message": {
-      "type": "text"
+      "type": "string"
     },
     "email": {
       "type": "email"
     },
-    "isOnSale": {
-      "type": "boolean"
+    "facebook": {
+      "type": "string"
     },
-    "ctaText": {
+    "instagram": {
+      "type": "string"
+    },
+    "linkedIn": {
       "type": "string"
     }
   }

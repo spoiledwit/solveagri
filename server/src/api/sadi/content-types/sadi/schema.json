@@ -1,0 +1,43 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sadis",
+  "info": {
+    "singularName": "sadi",
+    "pluralName": "sadis",
+    "displayName": "SADI"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "projTitle": {
+      "type": "string",
+      "required": true
+    },
+    "projSubTitle": {
+      "type": "string",
+      "required": true
+    },
+    "projld": {
+      "type": "uid",
+      "required": true
+    },
+    "projCategory": {
+      "type": "string",
+      "required": true
+    },
+    "projlmage": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "required": true
+    },
+    "projDescription": {
+      "type": "blocks",
+      "required": true
+    }
+  }
+}
