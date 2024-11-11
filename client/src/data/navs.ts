@@ -39,7 +39,7 @@ export const navLinks = [
   {
     id: "all-products",
     title: "All Products",
-    href: "/product",
+    href: "#",
     children: [
       {
         id: "animal-nutrition",

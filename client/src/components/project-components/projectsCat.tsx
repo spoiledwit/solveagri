@@ -15,15 +15,11 @@ const ProjectsCat = () => {
     const fetchProjects = async () => {
       try {
         const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
-        const path = "/api/projects"; // Assuming your endpoint is /api/projects
+        const path = "/api/project-categories"; // Assuming your endpoint is /api/projects
 
         // Construct the query with 'populate' for fetching images
         const query = qs.stringify({
-          populate: {
-            projImage: {
-              fields: ["url", "alternativeText"], // Fetch the project image URL and alt text
-            },
-          },
+          populate: "*",
         });
 
         const url = `${baseUrl}${path}?${query}`;
@@ -88,7 +84,8 @@ const ProjectsCat = () => {
                   })
                   .map((project) => (
                     <Link
-                      href={`/projects/category/${project.projCategory}`} // Redirect to category-based page
+                    //@ts-ignore
+                      href={`/projects/category/${project.slug}`} // Redirect to category-based page
                       key={project.projId}
                       passHref
                     >
@@ -96,30 +93,24 @@ const ProjectsCat = () => {
                         {/* Add consistent width and height to the container */}
                         <div className="w-[350px] h-[250px] md:w-[450px] md:h-[300px] overflow-hidden">
                           <img
-                            src={
-                              project.projImage?.url?.startsWith("http")
-                                ? project.projImage.url
-                                : `${process.env.NEXT_PUBLIC_BASE_URL}${project.projImage?.url}`
-                            }
+                          //@ts-ignore
+                            src={project.Image?.url}
                             alt={
-                              project.projImage?.alternativeText || project.projTitle
+                              project.projImage?.alternativeText ||
+                              project.projTitle
                             }
                             className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                            onError={(e) => {
-                              console.error(
-                                "Image failed to load:",
-                                project.projImage?.url
-                              );
-                              e.currentTarget.src = "/fallback-image.jpg"; // Optional fallback image
-                            }}
+                           
                           />
                         </div>
                         <div className="absolute inset-0 bg-DG cursor-pointer bg-opacity-50 flex flex-col justify-center items-center opacity-0 transition-opacity duration-200 ease-in-out group-hover:opacity-100 p-6">
                           <h3 className="text-xl text-white font-medium mb-3 text-center">
-                            {project.projTitle}
-                          </h3>
+                            {/* @ts-ignore */}
+                            {project.Title}
+                           </h3>
                           <p className="text-sm text-white mb-3 text-center">
-                            {project.projSubTitle}
+                            {/* @ts-ignore */}
+                            {project.SubTitle}
                           </p>
                           <AiOutlineArrowUp className="text-white w-6 h-6 mt-auto mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out delay-200" />
                         </div>

@@ -17,22 +17,20 @@ const ProductCat = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:1337";
-        const path = "/api/products";
+        const baseUrl =
+          process.env.NEXT_PUBLIC_BASE_URL ?? "http://localhost:1337";
+        const path = "/api/product-categories";
         const query = qs.stringify({
-          populate: {
-            productImage: {
-              fields: ["url", "alternativeText"],
-            },
-          },
+          populate: "*",
         });
 
         const url = `${baseUrl}${path}?${query}`;
         const response = await fetch(url);
         if (!response.ok) throw new Error("Failed to fetch products");
         const data = await response.json();
-        if (!Array.isArray(data.data)) throw new Error("Unexpected API response structure");
-        
+        console.log(data);
+        if (!Array.isArray(data.data))
+          throw new Error("Unexpected API response structure");
         setCategories(data.data);
         setIsLoading(false);
       } catch (error: any) {
@@ -76,7 +74,7 @@ const ProductCat = () => {
             </p>
           </AnimateToView>
 
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
@@ -84,7 +82,8 @@ const ProductCat = () => {
             {categories.length > 0 ? (
               categories
                 .filter((product) => {
-                  if (displayedCategories.has(product.productCategory)) return false;
+                  if (displayedCategories.has(product.productCategory))
+                    return false;
                   displayedCategories.add(product.productCategory);
                   return true;
                 })
@@ -95,34 +94,39 @@ const ProductCat = () => {
                     className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
                   >
                     <div
-                      onClick={() => router.push(`/product/category/${product.productCategory}`)}
+                      onClick={() =>
+                        router.push(
+                          //@ts-ignore
+                          `/product/category/${product.slug}`
+                        )
+                      }
                       className="relative aspect-[5/4] cursor-pointer overflow-hidden"
                     >
                       <img
                         className="w-full h-full object-contain transform transition-transform duration-500 group-hover:scale-105"
-                        src={product.productImage?.url?.startsWith("http")
-                          ? product.productImage.url
-                          : `${process.env.NEXT_PUBLIC_BASE_URL}${product.productImage?.url || "/default-image.jpg"}`
+                        //@ts-ignore
+                        src={product.Image?.url}
+                        alt={
+                          product.productImage?.alternativeText ||
+                          product.productTitle
                         }
-                        alt={product.productImage?.alternativeText || product.productTitle}
-                        onError={(e) => {
-                          console.error(`Image failed to load: ${product.productImage?.url}`, e);
-                          e.currentTarget.src = "/default-image.jpg";
-                        }}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     </div>
 
                     <div className="p-6">
                       <div className="mb-4 w-12 h-0.5 bg-[#A8CF45] mx-auto transform origin-left transition-transform duration-300 group-hover:scale-x-150" />
-                      
+
                       <h2 className="text-xl font-semibold text-gray-900 text-center">
-                        {product.productCategory}
+                        {/*@ts-ignore  */}
+                        {product.Title}
                       </h2>
 
                       <div className="mt-4 flex items-center justify-center">
-                        <span className="inline-flex items-center gap-2 text-sm font-medium text-[#A8CF45] 
-                                     transition-colors duration-300">
+                        <span
+                          className="inline-flex items-center gap-2 text-sm font-medium text-[#A8CF45] 
+                                     transition-colors duration-300"
+                        >
                           View Products
                           <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-1" />
                         </span>
@@ -148,8 +152,10 @@ const ProductCat = () => {
               className="border border-green-600 text-black bg-[#A8CF45] py-3 px-12 rounded-full 
                        transition duration-300 hover:bg-[#A8CF45]/90 group"
             >
-              View All Products 
-              <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+              View All Products
+              <span className="inline-block transition-transform duration-300 group-hover:translate-x-1">
+                &rarr;
+              </span>
             </Link>
           </div>
         </div>

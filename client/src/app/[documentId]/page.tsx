@@ -9,6 +9,7 @@ import { ChevronRight, ArrowRight, Loader2, ScrollText } from "lucide-react";
 import Navbar from "@/components/navbar";
 import Link from "next/link";
 import qs from "qs";
+import ServiceSlider from "@/components/serviceSlider";
 
 export default function ServicePage() {
   const [service, setService] = useState<ServiceData | null>(null);
@@ -40,24 +41,25 @@ export default function ServicePage() {
       const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
       const path = `/api/services/${id}`;
       const url = new URL(path, baseUrl);
-  
+
       url.search = qs.stringify({
-        populate: '*'  // This will populate all relations
+        populate: "*", // This will populate all relations
       });
-  
+
       const res = await fetch(url.toString());
       if (!res.ok) throw new Error(`Failed to fetch service with id ${id}`);
-  
+
       const data = await res.json();
-      
+
       setService(data.data);
       setContent(data.data.serviceContent || null);
       setAdvertisement(data.data.serviceAd || null);
       setAbout(data.data.serviceAbout || null);
-  
     } catch (error: any) {
       console.error("Error fetching service:", error);
-      setError(error.message || "An error occurred while fetching the service.");
+      setError(
+        error.message || "An error occurred while fetching the service."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -70,21 +72,24 @@ export default function ServicePage() {
       const path = "/api/services";
 
       // Simplified query with populate: '*'
-      const query = qs.stringify({
-        populate: '*',
-        pagination: {
-          pageSize: 100 // Or adjust based on your needs
+      const query = qs.stringify(
+        {
+          populate: "*",
+          pagination: {
+            pageSize: 100, // Or adjust based on your needs
+          },
+        },
+        {
+          encodeValuesOnly: true, // This helps with encoding
         }
-      }, {
-        encodeValuesOnly: true // This helps with encoding
-      });
+      );
 
       const url = `${baseUrl}${path}?${query}`;
-      
+
       const response = await fetch(url, {
-        method: 'GET',
+        method: "GET",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
@@ -102,7 +107,7 @@ export default function ServicePage() {
 
       const servicesData = Array.isArray(data.data) ? data.data : [];
       setServices(servicesData);
-
+      console.log(servicesData);
     } catch (error: any) {
       console.error("Service fetch error:", error);
       setError(error.message || "An error occurred while fetching services");
@@ -110,8 +115,6 @@ export default function ServicePage() {
       setIsLoading(false);
     }
   };
-
-
 
   // Helper function to format image URL
   const getImageUrl = (
@@ -141,6 +144,7 @@ export default function ServicePage() {
       </div>
     );
   }
+
   return (
     <div className="min-h-screen bg-white">
       {/* Navbar */}
@@ -172,7 +176,7 @@ export default function ServicePage() {
                 </h1>
                 <div className="h-1 w-20 bg-[#A8CF45] mb-6" />
                 <p className="text-lg text-white/90">
-                {/* @ts-ignore */}
+                  {/* @ts-ignore */}
                   {service?.heroHeading}
                 </p>
               </motion.div>
@@ -207,13 +211,31 @@ export default function ServicePage() {
                     Special Offers
                   </h3>
                   <div className="prose-sm">
-                    {advertisement && <BlocksRenderer content={advertisement} />}
+                    {advertisement && (
+                      <BlocksRenderer content={advertisement} />
+                    )}
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
+        {/* @ts-ignore */}
+        {service?.serviceslider?.length > 0 && (
+          <section className="py-16 bg-gray-50">
+            <div className="container mx-auto px-4">
+              <h2 className="text-2xl font-medium mb-8 text-center">Gallery</h2>
+              <ServiceSlider
+                //@ts-ignore
+                images={service.serviceslider.map((image) => ({
+                  url: image.url,
+                  
+                }))}
+                className="rounded-lg overflow-hidden shadow-lg"
+              />
+            </div>
+          </section>
+        )}
         {/* Related Services - Subtle and elegant */}
         <section className="pb-10 bg-gray-50">
           <div className="container mx-auto px-4">
@@ -222,7 +244,7 @@ export default function ServicePage() {
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {services.map((service:any) => (
+              {services.map((service: any) => (
                 <motion.div
                   key={service.id}
                   whileHover={{ y: -5 }}
@@ -237,7 +259,9 @@ export default function ServicePage() {
                       />
                     </div>
                     <div className="p-6">
-                      <h3 className="text-lg font-medium mb-2">{service.name}</h3>
+                      <h3 className="text-lg font-medium mb-2">
+                        {service.name}
+                      </h3>
                       <div className="flex items-center text-[#A8CF45]">
                         <span className="text-sm">Learn more</span>
                         <ArrowRight className="h-4 w-4 ml-2" />
@@ -251,5 +275,5 @@ export default function ServicePage() {
         </section>
       </main>
     </div>
-);
+  );
 }

@@ -7,6 +7,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Navbar from "./navbar";
+import Link from "next/link";
 
 interface SliderData {
   data: Array<{
@@ -108,8 +109,8 @@ const Hero = () => {
                     className={`absolute bg-black bg-opacity-30 top-0 left-0 w-full h-full flex px-8 md:px-20 transition-opacity duration-300`}
                     ref={ref}
                   >
-                    <div className="flex px-2 md:px-4 gap-[20px] flex-col w-full mt-20 justify-center items-start">
-                      <h2 className="text-white text-[16px] md:text-[36px]">
+                    <div className="flex px-2 md:px-4 gap-[20px] flex-col w-full mt-20 justify-center items-center text-center">
+                      <h2 className="text-white text-[16px] md:text-[52px]">
                         <strong className="text-[#A8CF45] w-full font-semibold">
                           {slide.Title}
                         </strong>
@@ -117,13 +118,13 @@ const Hero = () => {
                       <p className="text-white md:w-[60%] w-full mt-[-19px]">
                         {slide.Description}
                       </p>
-                      <a href="/projects">
+                      <Link href="/aboutus">
                         <button
                        
                         className="px-10 button-86 font-medium">
-                          View our Projects
+                          About Us
                         </button>
-                      </a>
+                      </Link>
                     </div>
                   </div>
                 </div>
