@@ -84,6 +84,9 @@ export default function ProjectPage() {
     );
   }
 
+  console.log("sadi", project);
+
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
       <div className="fixed w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
@@ -128,23 +131,13 @@ export default function ProjectPage() {
             transition={{ delay: 0.2 }}
             className="relative rounded-2xl overflow-hidden bg-gray-100 dark:bg-gray-800 mb-12"
           >
-            {imageLoading && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <Loader2 className="h-8 w-8 animate-spin text-blue-600 dark:text-blue-400" />
-              </div>
-            )}
+          
             <img
-              src={project.projImage?.url || "/default-image.jpg"}
+            //@ts-ignore
+              src={project.projlmage.url  || "/default-image.jpg"}
               alt={project.projImage?.alternativeText || project.projTitle}
-              className={`w-full h-[500px] object-cover object-center transition-opacity duration-300 ${
-                imageLoading ? 'opacity-0' : 'opacity-100'
-              }`}
-              onLoad={() => setImageLoading(false)}
-              onError={(e) => {
-                console.error(`Image failed to load: ${project.projImage?.url || "/default-image.jpg"}`, e);
-                e.currentTarget.src = "/default-image.jpg";
-                setImageLoading(false);
-              }}
+              className={`w-full h-[500px] object-cover object-center transition-opacity duration-300`}
+             
             />
           </motion.div>
 

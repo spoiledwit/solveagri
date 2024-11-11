@@ -28,9 +28,8 @@ const ProjectCard = ({ project }:{
     ? `${project.projTitle.substring(0, 40)}...`
     : project.projTitle;
 
-  const imageUrl = project.projImage?.url?.startsWith("http")
-    ? project.projImage.url
-    : `${process.env.NEXT_PUBLIC_BASE_URL}${project.projImage?.url || "/default-image.jpg"}`;
+
+
 
   return (
     <Card className="group h-full overflow-hidden transition-all duration-300 hover:shadow-xl bg-white dark:bg-gray-800">
@@ -42,7 +41,8 @@ const ProjectCard = ({ project }:{
         <div className="relative h-48 overflow-hidden">
           <div className="absolute inset-0 bg-gray-900/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
           <img
-            src={!imageError ? imageUrl : '/default-image.jpg'}
+          //@ts-ignore
+            src={project.projImage.url}
             alt={project.projTitle || 'Project thumbnail'}
             width={400}
             height={300}

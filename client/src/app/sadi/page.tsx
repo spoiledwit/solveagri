@@ -151,7 +151,11 @@ export default function ProjectsPage() {
                   {/* @ts-ignore */}
                     <ProjectCard project={{
                       ...proj,
-                      category: "SADI"
+                      category: "SADI",
+                      projImage: {
+                        //@ts-ignore
+                        url: proj.projImage,
+                      }
                     }} />
                   </motion.div>
                 ))}
