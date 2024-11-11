@@ -20,12 +20,12 @@
             "required": true
         },
         "heroImage": {
-            "allowedTypes": [
-                "images"
-            ],
             "type": "media",
             "multiple": false,
-            "required": true
+            "required": true,
+            "allowedTypes": [
+                "images"
+            ]
         },
         "serviceAbout": {
             "type": "blocks",
@@ -37,6 +37,15 @@
         },
         "serviceAd": {
             "type": "blocks",
+            "required": true
+        },
+        "serviceslider": {
+            "allowedTypes": [
+                "images",
+                "files"
+            ],
+            "type": "media",
+            "multiple": true,
             "required": true
         }
     }
