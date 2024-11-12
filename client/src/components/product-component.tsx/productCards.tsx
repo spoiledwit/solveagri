@@ -28,7 +28,6 @@ const ProductCat = () => {
         const response = await fetch(url);
         if (!response.ok) throw new Error("Failed to fetch products");
         const data = await response.json();
-        console.log(data);
         if (!Array.isArray(data.data))
           throw new Error("Unexpected API response structure");
         setCategories(data.data);
@@ -67,7 +66,7 @@ const ProductCat = () => {
       <div className="flex mt-5">
         <div className="w-full flex flex-col gap-12">
           <AnimateToView className="flex w-full gap-4">
-            <div className="h-[1px] ml-[-30px] mt-3 w-20 bg-DG" />
+            <div className="h-[1px] ml-[-30px] mt-3 w-[60px] bg-white" />
             <p className="text-white text-lg md:text-xl font-light">
               Explore our carefully chosen featured products below, specifically
               curated to meet all your essential livestock needs with ease.
@@ -80,60 +79,53 @@ const ProductCat = () => {
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
           >
             {categories.length > 0 ? (
-              categories
-                .filter((product) => {
-                  if (displayedCategories.has(product.productCategory))
-                    return false;
-                  displayedCategories.add(product.productCategory);
-                  return true;
-                })
-                .map((product) => (
-                  <motion.div
-                    key={product.pid}
-                    whileHover={{ y: -5 }}
-                    className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
-                  >
-                    <div
-                      onClick={() =>
-                        router.push(
-                          //@ts-ignore
-                          `/product/category/${product.slug}`
-                        )
-                      }
-                      className="relative aspect-[5/4] cursor-pointer overflow-hidden"
-                    >
-                      <img
-                        className="w-full h-full object-contain transform transition-transform duration-500 group-hover:scale-105"
+              categories.map((product) => (
+                <motion.div
+                  key={product.pid}
+                  whileHover={{ y: -5 }}
+                  className="group bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
+                >
+                  <div
+                    onClick={() =>
+                      router.push(
                         //@ts-ignore
-                        src={product.Image?.url}
-                        alt={
-                          product.productImage?.alternativeText ||
-                          product.productTitle
-                        }
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                    </div>
+                        `/product/category/${product.slug}`
+                      )
+                    }
+                    className="relative aspect-[5/4] cursor-pointer overflow-hidden"
+                  >
+                    <img
+                      className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
+                      //@ts-ignore
+                      src={product.Image?.url}
+                      alt={
+                        product.productImage?.alternativeText ||
+                        product.productTitle
+                      }
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
 
-                    <div className="p-6">
-                      <div className="mb-4 w-12 h-0.5 bg-[#A8CF45] mx-auto transform origin-left transition-transform duration-300 group-hover:scale-x-150" />
+                  <div className="p-6">
+                    <div className="mb-4 w-12 h-0.5 bg-[#A8CF45] mx-auto transform origin-left transition-transform duration-300 group-hover:scale-x-150" />
 
-                      <h2 className="text-xl font-semibold text-gray-900 text-center">
-                        {/*@ts-ignore  */}
-                        {product.Title}
-                      </h2>
+                    <h2 className="text-xl font-semibold text-gray-900 text-center">
+                      {/*@ts-ignore  */}
+                      {product.Title}
+                    </h2>
 
-                      <div className="mt-4 flex items-center justify-center">
-                        <span
-                          className="inline-flex items-center gap-2 text-sm font-medium text-[#A8CF45] 
+                    <div className="mt-4 flex items-center justify-center">
+                      <span
+                        className="inline-flex items-center gap-2 text-sm font-medium text-[#A8CF45] 
                                      transition-colors duration-300"
-                        >
-                          View Products
-                          <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-1" />
-                        </span>
-                      </div>
+                      >
+                        View Products
+                        <ArrowRight className="h-4 w-4 transform transition-transform duration-300 group-hover:translate-x-1" />
+                      </span>
                     </div>
-                  </motion.div>
-                ))
+                  </div>
+                </motion.div>
+              ))
             ) : (
               <div className="col-span-full p-8 text-center">
                 <p className="text-xl text-gray-400">

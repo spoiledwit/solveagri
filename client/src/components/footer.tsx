@@ -162,7 +162,7 @@ const Footer = () => {
 
 
   return (
-    <div className="bg-[#000517] flex flex-col items-center justify-center w-full px-4 md:px-20 xl:px-20 gap-12 md:py-20 py-8">
+    <div className="bg-[#000517] flex flex-col items-center justify-center w-full px-4 md:px-20 xl:px-20 gap-12  pb-8">
       <div className="h-0.5 w-1/2 bg-[#000517]" />
       <div className="flex flex-col lg:flex-row w-full gap-12">
         <div className="w-full flex flex-col gap-4">
@@ -179,7 +179,10 @@ const Footer = () => {
               <p className="text-white">{contactInfo.phone2}</p>
             )}
             {contactInfo?.email && (
-              <p className="text-white">{contactInfo.email}</p>
+              <a 
+              href={"mailto:"+contactInfo.email}
+              target="_blank"
+              className="text-white">{contactInfo.email}</a>
             )}
           </div>
           <div className="flex gap-4 w-full justify-start flex-wrap">

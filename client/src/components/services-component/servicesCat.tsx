@@ -91,8 +91,8 @@ const ServiceCat = () => {
 
       <div className="flex flex-col gap-12 mt-5">
         <AnimateToView className="flex w-full gap-4">
-          <div className="h-[1px] ml-[-30px] mt-3 w-40 bg-DG" />
-          <p className="text-DG md:text-xl font-light">
+          <div className="h-[1px] ml-[-30px] mt-3 w-[180px] bg-DG" />
+          <p className="text-DG text-justify md:text-xl font-light">
             We are committed to offering dependable, high-quality solutions,
             services, and development projects that cater to all your livestock
             and dairy needs, regardless of the size of your operations. Our

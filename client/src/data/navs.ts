@@ -160,7 +160,7 @@ export const navLinks = [
   },
   {
     id: "sadi",
-    title: "Sadi",
+    title: "Training Institute",
     href: "/sadi",
   },
 ];

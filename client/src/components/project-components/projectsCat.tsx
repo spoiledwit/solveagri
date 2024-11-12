@@ -61,7 +61,7 @@ const ProjectsCat = () => {
       <div className="flex px-2 mt-5">
         <div>
           <AnimateToView className="flex gap-4 w-full">
-            <div className="md:block hidden w-[250px] mt-3 ml-[-30px] h-[1px] bg-white" />
+            <div className="md:block hidden w-[100px] mt-3 ml-[-30px] h-[1px] bg-white" />
             <p className="text-white md:text-xl font-light">
               Our project prioritizes livestock well-being, modernizing farming
               practices, empowering farmers with training and resources, and

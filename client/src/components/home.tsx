@@ -11,9 +11,9 @@ export default function Home() {
   return (
     <div className="overflow-hidden w-full">
         <Hero/>
-        <div className="relative w-full bg-LG">
+        {/* <div className="relative w-full bg-LG">
         <About />
-      </div>
+      </div> */}
       <div className="bg-DB">
         <ProductCat />
       </div>
@@ -23,13 +23,13 @@ export default function Home() {
       <div className="bg-DB">
         <ProjectsCat />
       </div>
-      <div className="md:px-20 py-10 px-8 bg-white">
+      <div className="md:px-20 px-8 bg-white">
         <Partners />
       </div>
 
-      <div className=" bg-DB">
+      {/* <div className=" bg-DB">
         <Contact />
-      </div>
+      </div> */}
 
     </div>
   )
