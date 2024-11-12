@@ -74,14 +74,6 @@ const ProjectsCat = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-12">
               {projects.length > 0 ? (
                 projects
-                  .filter((project) => {
-                    if (displayedCategories.has(project.projCategory)) {
-                      return false;
-                    }
-
-                    displayedCategories.add(project.projCategory);
-                    return true;
-                  })
                   .map((project) => (
                     <Link
                     //@ts-ignore
