@@ -10,6 +10,7 @@
     "start": "strapi start",
     "strapi": "strapi"
   },
+  
   "dependencies": {
     "@strapi/plugin-cloud": "5.3.0",
     "@strapi/plugin-users-permissions": "5.3.0",
