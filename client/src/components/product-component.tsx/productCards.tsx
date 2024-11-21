@@ -7,6 +7,7 @@ import qs from "qs";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Loader2, ArrowRight } from "lucide-react";
+import getValidImageUrl from "@/utils/getValidImageUrl";
 
 const ProductCat = () => {
   const [categories, setCategories] = useState<Product[]>([]);
@@ -97,7 +98,7 @@ const ProductCat = () => {
                     <img
                       className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-105"
                       //@ts-ignore
-                      src={product.Image?.url}
+                      src={getValidImageUrl(product.Image?.url)}
                       alt={
                         product.productImage?.alternativeText ||
                         product.productTitle

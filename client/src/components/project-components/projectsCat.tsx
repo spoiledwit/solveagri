@@ -5,6 +5,7 @@ import AnimateToView from "../AnimateToView";
 import { Project } from "@/types/all-types"; // Assuming this is your defined Project type
 import qs from "qs";
 import { AiOutlineArrowUp } from "react-icons/ai";
+import getValidImageUrl from "@/utils/getValidImageUrl";
 
 const ProjectsCat = () => {
   const [projects, setProjects] = useState<Project[]>([]); // State to store the projects fetched from Strapi
@@ -71,7 +72,7 @@ const ProjectsCat = () => {
           </AnimateToView>
 
           <div className="flex gap-8 mt-12">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-12">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4 justify-between gap-y-12">
               {projects.length > 0 ? (
                 projects
                   .map((project) => (
@@ -83,10 +84,10 @@ const ProjectsCat = () => {
                     >
                       <div className="relative group cursor-pointer">
                         {/* Add consistent width and height to the container */}
-                        <div className="w-[350px] h-[250px] md:w-[450px] md:h-[300px] overflow-hidden">
+                        <div className="w-[350px] h-[250px] md:w-[390px] md:h-[290px] overflow-hidden">
                           <img
                           //@ts-ignore
-                            src={project.Image?.url}
+                            src={getValidImageUrl(project.Image?.url)}
                             alt={
                               project.projImage?.alternativeText ||
                               project.projTitle
@@ -95,7 +96,7 @@ const ProjectsCat = () => {
                            
                           />
                         </div>
-                        <div className="absolute inset-0 bg-DG cursor-pointer bg-opacity-50 flex flex-col justify-center items-center opacity-0 transition-opacity duration-200 ease-in-out group-hover:opacity-100 p-6">
+                        <div className="absolute inset-0 bg-DG cursor-pointer bg-opacity-50 flex flex-col justify-center items-center p-6">
                           <h3 className="text-xl text-white font-medium mb-3 text-center">
                             {/* @ts-ignore */}
                             {project.Title}

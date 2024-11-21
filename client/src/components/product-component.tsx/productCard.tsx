@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Product } from "@/types/all-types";
+import getValidImageUrl from "@/utils/getValidImageUrl";
 
 const formatPrice = (price: number): string => {
   return new Intl.NumberFormat("en-PK", {
@@ -28,7 +29,7 @@ export default function ProductCard({ product }: { product: Product }) {
       <div className="relative aspect-square">
         <div className="absolute inset-0">
           <Image
-            src={imageUrl}
+            src={getValidImageUrl(imageUrl)}
             alt={product.productTitle}
             layout="fill"
             objectFit="contain"

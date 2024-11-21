@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Navbar from "./navbar";
 import Link from "next/link";
+import getValidImageUrl from "@/utils/getValidImageUrl";
 
 interface SliderData {
   data: Array<{
@@ -94,7 +95,7 @@ const Hero = () => {
                   key={i}
                   className="flex w-full h-screen justify-center items-center relative"
                 > <img
-                    src={`${slide.Image.url}`}
+                    src={`${getValidImageUrl(slide.Image.url)}`}
                     alt={slide.Title}
                     className={`w-full h-full object-cover object-center transition-opacity duration-300 ${
                        'opacity-100' 

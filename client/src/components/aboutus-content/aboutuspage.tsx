@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import AnimateToView from "@/components/AnimateToView";
 import { useState } from "react";
 import qs from "qs";
+import getValidImageUrl from "@/utils/getValidImageUrl";
 
 const AboutUs = () => {
   useEffect(() => {
@@ -278,7 +279,7 @@ const AboutUs = () => {
               {/* Parent div for image and LinkedIn icon with relative positioning */}
               <div className="relative w-full overflow-hidden">
                 <div className="w-[300px] h-[300px] overflow-hidden">
-                  <img src={member.Image.url} alt="" />
+                  <img src={getValidImageUrl(member.Image.url)} alt="" />
                 </div>
 
                 {/* LinkedIn icon positioned at the bottom-right corner */}

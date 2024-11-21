@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight, Clock, Tag } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import getValidImageUrl from '@/utils/getValidImageUrl';
 
 const ProjectCard = ({ project }:{
   project: {
@@ -42,7 +43,7 @@ const ProjectCard = ({ project }:{
           <div className="absolute inset-0 bg-gray-900/20 opacity-0 transition-opacity duration-300 group-hover:opacity-100 z-10" />
           <img
           //@ts-ignore
-            src={project.projImage.url}
+            src={getValidImageUrl(project.projImage.url)}
             alt={project.projTitle || 'Project thumbnail'}
             width={400}
             height={300}

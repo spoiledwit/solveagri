@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import getValidImageUrl from '@/utils/getValidImageUrl';
 
 interface SlideImage {
   url: string;
@@ -56,7 +57,7 @@ const ServiceSlider = ({
         <AnimatePresence initial={false} custom={currentIndex}>
           <motion.img
             key={currentIndex}
-            src={images[currentIndex].url}
+            src={getValidImageUrl(images[currentIndex].url)}
             alt={images[currentIndex].alt || `Slide ${currentIndex + 1}`}
             className="absolute w-full h-full object-cover"
             initial={{ opacity: 0, x: 300 }}

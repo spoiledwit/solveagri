@@ -9,6 +9,7 @@ import Navbar from "@/components/navbar";
 import { motion } from "framer-motion";
 import { Loader2, ArrowLeft } from "lucide-react";
 import Link from "next/link";
+import getValidImageUrl from "@/utils/getValidImageUrl";
 
 export default function ProjectPage() {
   const params = useParams();
@@ -142,7 +143,7 @@ export default function ProjectPage() {
               </div>
             )}
             <img
-              src={imageUrl}
+              src={getValidImageUrl(imageUrl)}
               alt={project.projImage?.alternativeText || project.projTitle}
               className={`w-full h-[500px] object-cover object-center transition-opacity duration-300 ${
                 imageLoading ? 'opacity-0' : 'opacity-100'
