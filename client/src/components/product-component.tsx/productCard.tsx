@@ -67,12 +67,18 @@ export default function ProductCard({ product }: { product: Product }) {
         </h3>
 
         <div className="mt-auto">
-          {/* Price Section */}
-          <div className="flex items-baseline gap-2">
+          {/* <div className="flex items-baseline gap-2">
             <span className="text-gray-900 font-semibold">
               {formatPrice(product.productPrice)}
             </span>
-          </div>
+          </div> */}
+          {product.productPrice > 0 && (
+            <div className="flex items-baseline gap-2">
+              <span className="text-gray-900 font-semibold">
+                {formatPrice(product.productPrice)}
+              </span>
+            </div>
+          )}
 
           {/* SKU */}
           <div className="mt-2 flex items-center justify-between">
