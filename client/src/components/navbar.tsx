@@ -157,6 +157,7 @@ const Navbar = () => {
     const throttledHandleScroll = throttle(handleScroll, 200); // 200ms throttle
 
     window.addEventListener("scroll", throttledHandleScroll);
+    // setIsVisible(false)
 
     return () => {
       window.removeEventListener("scroll", throttledHandleScroll);
@@ -173,6 +174,56 @@ const Navbar = () => {
     setActiveDropdown(null);
   };
 
+  // const LinkDropdown = ({ link }: { link: LinkWithChildren }) => {
+  //   const isOpen = activeDropdown === link.id; // Check if the dropdown is active
+  //   const [isHovered, setIsHovered] = useState(false); // Track hover state
+  //   const hoverDelay = 200; // Delay in ms before closing dropdown
+  
+  //   const handleMouseEnter = () => {
+  //     setIsHovered(true);
+  //     setActiveDropdown(link.id); // Keep dropdown open
+  //   };
+  
+  //   const handleMouseLeave = () => {
+  //     setTimeout(() => {
+  //       if (!isHovered) {
+  //         setActiveDropdown(null); // Close dropdown after delay
+  //       }
+  //     }, hoverDelay);
+  //     setIsHovered(false);
+  //   };
+  
+  //   return (
+  //     <div
+  //       className="relative"
+  //       onMouseEnter={handleMouseEnter} // Trigger on hover
+  //       onMouseLeave={handleMouseLeave} // Delay closing
+  //     >
+  //       <motion.div
+  //         initial={{ opacity: 0, y: 10 }}
+  //         animate={isOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+  //         transition={{ ease: "circOut", duration: 0.15 }}
+  //         className={`absolute top-full left-0 mt-2 rounded-md shadow-lg bg-white/90 backdrop-blur-sm z-50 ${
+  //           isOpen ? "pointer-events-auto" : "pointer-events-none"
+  //         }`}
+  //       >
+  //         <div className="py-1">
+  //           {link.children?.map((c) => (
+  //             <Link
+  //               key={c.id}
+  //               href={c.href}
+  //               className="block px-4 py-2 text-sm text-black hover:bg-LG"
+  //             >
+  //               {c.title.replace(/-/g, " ")}
+  //             </Link>
+  //           ))}
+  //         </div>
+  //       </motion.div>
+  //     </div>
+  //   );
+  // };
+  
+
   // Dropdown component for desktop navigation
   const LinkDropdown = ({ link }: { link: LinkWithChildren }) => {
     const isOpen = activeDropdown === link.id; // Check if the dropdown is active
@@ -182,7 +233,7 @@ const Navbar = () => {
         initial={{ opacity: 0, y: 10 }}
         animate={isOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
         transition={{ ease: "circOut", duration: 0.15 }}
-        className="absolute top-full left-0 mt-2 rounded-md shadow-lg bg-white z-50"
+        className="absolute top-full left-0 mt-2 rounded-md shadow-lg bg-white/90 backdrop-blur-sm z-50"
       >
         <div className="py-1">
           {link.children?.map((c) => (
@@ -191,7 +242,7 @@ const Navbar = () => {
               href={c.href}
               className="block px-4 py-2 text-sm text-black hover:bg-LG"
             >
-              {c.title}
+              {c.title.replace(/-/g, " ")}
             </Link>
           ))}
         </div>
@@ -224,7 +275,7 @@ const Navbar = () => {
     <header
       className={`bg-white text-black border-gray-100 border mt-3 mx-5 rounded-2xl transition duration-200 ease-in-out z-50`}
     >
-      <nav className="w-full text-black flex py-3 items-center justify-between border-gray-200 px-4 xl:px-16">
+      <nav className="w-full text-black flex py-1 items-center justify-between border-gray-200 px-4 xl:px-16">
         {/* Logo */}
         <Link href="/" className="min-w-max">
           <img src="/logo.png" alt="logo" className="md:h-[60px] h-[40px]" />
@@ -253,7 +304,7 @@ const Navbar = () => {
                     href={link.href}
                     className="text-black uppercase flex items-center font-semibold text-sm py-2"
                   >
-                    <span className="text-xs">{link.title}</span>
+                    <span className="text-sm">{link.title}</span>
                     {link.children && (
                       <IoMdArrowDropdown size={16} className="ml-1" />
                     )}
@@ -265,12 +316,8 @@ const Navbar = () => {
           </ul>
         </div>
 
-        <Link href="/contactus"
-        className="md:block hidden"
-        passHref>
-          <button className="button-86 font-medium">
-            Contact Us{" "}
-          </button>
+        <Link href="/contactus" className="md:block hidden" passHref>
+          <button className="button-86 font-medium">Contact Us </button>
         </Link>
 
         {/* Mobile Navigation */}
@@ -369,7 +416,7 @@ const MobileNav = ({ navLinks }: { navLinks: LinkWithChildren[] }) => {
                               href={c.href}
                               className="block py-1 text-gray-700 hover:text-green-500"
                             >
-                              {c.title}
+                              {c.title.replace(/-/g, " ")}
                             </Link>
                           ))}
                         </div>

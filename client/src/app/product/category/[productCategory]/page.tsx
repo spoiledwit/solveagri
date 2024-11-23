@@ -13,16 +13,20 @@ export default function ProductsByCategoryPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Ensure productCategory is a string
+  const category =
+    Array.isArray(productCategory) ? productCategory.join(" ") : productCategory;
+
   useEffect(() => {
     const fetchProducts = async () => {
       setIsLoading(true);
       try {
         const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
         const path = "/api/products";
-        
+
         const query = qs.stringify({
           filters: {
-            productCategory: productCategory,
+            productCategory: category,
           },
           populate: {
             productImage: {
@@ -33,12 +37,13 @@ export default function ProductsByCategoryPage() {
 
         const url = `${baseUrl}${path}?${query}`;
         const res = await fetch(url);
-        
+
         if (!res.ok) throw new Error("Failed to fetch products");
-        
+
         const data = await res.json();
-        if (!Array.isArray(data.data)) throw new Error("Unexpected API response structure");
-        
+        if (!Array.isArray(data.data))
+          throw new Error("Unexpected API response structure");
+
         setProducts(data.data);
       } catch (error: any) {
         setError(error.message);
@@ -48,7 +53,7 @@ export default function ProductsByCategoryPage() {
     };
 
     fetchProducts();
-  }, [productCategory]);
+  }, [category]);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -62,11 +67,11 @@ export default function ProductsByCategoryPage() {
           <div className="flex items-center gap-3 mb-2">
             <Package className="h-5 w-5 text-[#A8CF45]" />
             <h1 className="text-2xl font-semibold text-gray-900">
-              {productCategory}
+              {category?.replace(/-/g, " ")}
             </h1>
           </div>
           <p className="text-gray-600">
-            Browse our collection of products in {productCategory}
+            Browse our collection of products in {category?.replace(/-/g, " ")}
           </p>
         </div>
 
@@ -79,9 +84,7 @@ export default function ProductsByCategoryPage() {
           </div>
         ) : error ? (
           <div className="flex justify-center items-center min-h-[400px]">
-            <div className="bg-red-50 text-red-500 p-4 rounded-lg">
-              {error}
-            </div>
+            <div className="bg-red-50 text-red-500 p-4 rounded-lg">{error}</div>
           </div>
         ) : products.length === 0 ? (
           <div className="flex flex-col items-center justify-center min-h-[400px] bg-white rounded-lg p-8">
