@@ -1,4 +1,3 @@
-"use client";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import AnimateToView from "../AnimateToView";
@@ -31,7 +30,32 @@ const ProductCat = () => {
         const data = await response.json();
         if (!Array.isArray(data.data))
           throw new Error("Unexpected API response structure");
-        setCategories(data.data);
+
+        // Define custom order
+        const customOrder = [
+          "Animal Feed",
+          "Bovine Genetics",
+          "Hygiene Solutions",
+          "Calf Rearing",
+          "Farm Accessories",
+          "Farm Machinery",
+        ];
+
+        // Sort categories based on custom order
+        const sortedCategories = data.data.sort((a: Product, b: Product) => {
+          //@ts-ignore
+          const indexA = customOrder.indexOf(a.Title.trim());
+          //@ts-ignore
+          const indexB = customOrder.indexOf(b.Title.trim());
+
+          // Items not in the customOrder will appear at the end
+          return (
+            (indexA === -1 ? customOrder.length : indexA) -
+            (indexB === -1 ? customOrder.length : indexB)
+          );
+        });
+
+        setCategories(sortedCategories); // Update state with sorted categories
         setIsLoading(false);
       } catch (error: any) {
         setError(error.message);
@@ -41,8 +65,6 @@ const ProductCat = () => {
 
     fetchProducts();
   }, []);
-
-  const displayedCategories = new Set();
 
   if (isLoading) {
     return (

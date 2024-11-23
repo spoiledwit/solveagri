@@ -59,7 +59,7 @@ export default function ProductsPage() {
     fetchProducts(page);
   }, [page]);
 
-  const totalPages = Math.ceil(total / 3); // Calculate total pages (1 product per page)
+  const totalPages = Math.ceil(total / 1); // Calculate total pages (1 product per page)
 
   return (
     <>
@@ -99,7 +99,7 @@ export default function ProductsPage() {
       </div>
 
       {/* Page number display */}
-      <div className="mt-4 text-center">
+      <div className="my-4 text-center">
         <p>
           Page {page} of {totalPages}
         </p>

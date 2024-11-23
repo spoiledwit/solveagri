@@ -14,6 +14,7 @@ interface Product {
   documentId?: string;
   productDescription: string;
   isOnSale?: boolean;
+  Title?:string;
   productImage?: {
     id: number;
     alternativeText: string;
@@ -40,6 +41,8 @@ interface Project {
   projCategory: string;
   documentId?: string;
   projDescription?: string;
+  Title?:string;
+  slug?:string;
   // createdAt?: string;
   // updatedAt?: string;
 }

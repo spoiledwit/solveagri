@@ -19,41 +19,64 @@ const ServiceCat = () => {
         setIsLoading(true);
         const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
         const path = "/api/services";
-
-        // Simplified query with populate: '*'
-        const query = qs.stringify({
-          populate: '*',
-          pagination: {
-            pageSize: 100 // Or adjust based on your needs
+  
+        const query = qs.stringify(
+          {
+            populate: "*",
+            pagination: {
+              pageSize: 100, // Adjust based on your needs
+            },
+          },
+          {
+            encodeValuesOnly: true, // Helps with encoding
           }
-        }, {
-          encodeValuesOnly: true // This helps with encoding
-        });
-
+        );
+  
         const url = `${baseUrl}${path}?${query}`;
-        
+  
         const response = await fetch(url, {
-          method: 'GET',
+          method: "GET",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
         });
-
+  
         if (!response.ok) {
           const errorData = await response.json();
           throw new Error(errorData.message || "Failed to fetch services");
         }
-
+  
         const data = await response.json();
-
-        // Better data validation
+  
         if (!data || !data.data) {
           throw new Error("Invalid data structure received");
         }
-
+  
         const servicesData = Array.isArray(data.data) ? data.data : [];
-        setServices(servicesData);
-
+  
+        // Define your custom order
+        const customOrder = [
+          "Farm Inputs & Supplies",
+          "Community Development Projects",
+          "Consultancy Services",
+          "Training & Development",
+        ];
+  
+        // Sort the services based on the custom order
+        const sortedServices = servicesData.sort((a: ServiceData, b: ServiceData) => {
+          //@ts-ignore
+          const indexA = customOrder.indexOf(a.name.trim());
+          //@ts-ignore
+          const indexB = customOrder.indexOf(b.name.trim());
+  
+          // Items not in the customOrder will appear at the end
+          return (
+            (indexA === -1 ? customOrder.length : indexA) -
+            (indexB === -1 ? customOrder.length : indexB)
+          );
+        });
+  
+        setServices(sortedServices); // Update state with sorted services
       } catch (error: any) {
         console.error("Service fetch error:", error);
         setError(error.message || "An error occurred while fetching services");
@@ -61,9 +84,10 @@ const ServiceCat = () => {
         setIsLoading(false);
       }
     };
-
+  
     fetchServices();
   }, []);
+  
 
   const container = {
     hidden: { opacity: 0 },
@@ -169,7 +193,7 @@ const ServiceCat = () => {
         {/* View All Services Button - Preserved Styling */}
         <div className="flex justify-center mt-8">
           <Link
-            href={services.length > 0 ? `/${services[0].documentId}` : "/"}
+            href={services.length > 100 ? `/${services[0].documentId}` : "/"}
             className="border flex items-center gap-2 border-green-600 text-white bg-[#000C36] py-3 px-12 rounded-full 
                      hover:bg-[#a8cf45] hover:text-white transition-all duration-300 group"
           >
