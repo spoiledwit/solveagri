@@ -98,7 +98,7 @@ const Hero = () => {
                     src={`${getValidImageUrl(slide.Image.url)}`}
                     alt={slide.Title}
                     className={`w-full h-full object-cover object-center transition-opacity duration-300 ${
-                       'opacity-100' 
+                       'opacity-100'
                     }`}
                     style={{
                       borderRadius: "20px",
@@ -107,10 +107,10 @@ const Hero = () => {
                     }}
                   />
                   <div
-                    className={`absolute bg-black bg-opacity-30 top-0 left-0 w-full h-full flex px-8 md:px-20 transition-opacity duration-300`}
+                    className={`absolute  bg-black/60 top-0 left-0 w-full h-full flex px-8 md:px-20 transition-opacity duration-300`}
                     ref={ref}
                   >
-                    <div className="flex px-2 md:px-4 gap-[20px] flex-col w-full mt-20 justify-center items-center text-center">
+                    <div className="flex px-2 md:px-4 gap-[20px] flex-col w-full mb-28  justify-end items-start ">
                       <h2 className="text-white text-[16px] md:text-[52px]">
                         <strong className="text-[#A8CF45] w-full font-semibold">
                           {slide.Title}
@@ -121,7 +121,6 @@ const Hero = () => {
                       </p>
                       <Link href="/aboutus">
                         <button
-                       
                         className="px-10 button-86 font-medium">
                           About Us
                         </button>

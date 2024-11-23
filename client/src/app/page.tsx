@@ -1,7 +1,7 @@
 import Home from "@/components/home";
 
 export const metadata = {
-  title: "Slove Agri",
+  title: "Solve Agri",
 };
 
 export default function Page() {

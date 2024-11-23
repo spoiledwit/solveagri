@@ -26,6 +26,8 @@ const ProjectsCat = () => {
         const url = `${baseUrl}${path}?${query}`;
         const response = await fetch(url);
 
+        console.log(response);
+
         if (!response.ok) {
           throw new Error("Failed to fetch projects");
         }
@@ -74,42 +76,45 @@ const ProjectsCat = () => {
           <div className="flex gap-8 mt-12">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4 justify-between gap-y-12">
               {projects.length > 0 ? (
-                projects
-                  .map((project) => (
-                    <Link
+                projects.map((project) => (
+                  <Link
                     //@ts-ignore
-                      href={`/projects/category/${project.slug}`} // Redirect to category-based page
-                      key={project.projId}
-                      passHref
-                    >
-                      <div className="relative group cursor-pointer">
-                        {/* Add consistent width and height to the container */}
-                        <div className="w-[350px] h-[250px] md:w-[390px] md:h-[290px] overflow-hidden">
-                          <img
-                          //@ts-ignore
-                            src={getValidImageUrl(project.Image?.url)}
-                            alt={
-                              project.projImage?.alternativeText ||
-                              project.projTitle
-                            }
-                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                           
-                          />
-                        </div>
-                        <div className="absolute inset-0 bg-DG cursor-pointer bg-opacity-50 flex flex-col justify-center items-center p-6">
-                          <h3 className="text-xl text-white font-medium mb-3 text-center">
-                            {/* @ts-ignore */}
-                            {project.Title}
-                           </h3>
-                          <p className="text-sm text-white mb-3 text-center">
-                            {/* @ts-ignore */}
-                            {project.SubTitle}
-                          </p>
-                          <AiOutlineArrowUp className="text-white w-6 h-6 mt-auto mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out delay-200" />
-                        </div>
+                    href={
+                      // @ts-ignore
+                      project.Title === "Training Institute"
+                        ? "/sadi"
+                        : `/projects/category/${project.slug}`
+                    }
+                    key={project.projId}
+                    passHref
+                  >
+                    <div className="relative group cursor-pointer flex gap-4 ">
+                      {/* Add consistent width and height to the container */}
+                      <div className="w-[350px] h-[250px] md:w-[390px] md:h-[290px] overflow-hidden rounded-xl">
+                        <img
+                          // @ts-ignore
+                          src={getValidImageUrl(project.Image?.url)}
+                          alt={
+                            project.projImage?.alternativeText ||
+                            project.projTitle
+                          }
+                          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 "
+                        />
                       </div>
-                    </Link>
-                  ))
+                      <div className="absolute inset-0 bg-DG cursor-pointer bg-opacity-50 flex flex-col justify-center items-center p-6">
+                        <h3 className="text-xl text-white font-medium mb-3 text-center">
+                          {/* @ts-ignore */}
+                          {project.Title}
+                        </h3>
+                        <p className="text-sm text-white mb-3 text-center">
+                          {/* @ts-ignore */}
+                          {project.SubTitle}
+                        </p>
+                        <AiOutlineArrowUp className="text-white w-6 h-6 mt-auto mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 ease-in-out delay-200" />
+                      </div>
+                    </div>
+                  </Link>
+                ))
               ) : (
                 <p>No projects available at the moment.</p>
               )}
