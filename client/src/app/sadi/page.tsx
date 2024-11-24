@@ -70,7 +70,7 @@ export default function ProjectsPage() {
     fetchProjects(page);
   }, [page]);
 
-  const totalPages = Math.ceil(total / 3);
+  const totalPages = Math.ceil(total / 300);
 
   // Animation variants
   const container = {
@@ -126,7 +126,7 @@ export default function ProjectsPage() {
           </motion.div>
         ) : (
           <>
-            {project.length === 0 ? (
+            {project.length === 100 ? (
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -162,7 +162,7 @@ export default function ProjectsPage() {
               </motion.div>
             )}
 
-            {totalPages > 1 && (
+            {/* {totalPages > 1 && (
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -192,7 +192,7 @@ export default function ProjectsPage() {
                   </button>
                 </div>
               </motion.div>
-            )}
+            )} */}
           </>
         )}
       </main>
