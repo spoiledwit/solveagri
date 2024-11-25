@@ -111,7 +111,7 @@ const Hero = () => {
                     ref={ref}
                   >
                     <div className="flex px-2 md:px-4 gap-[20px] flex-col w-full mb-28  justify-end items-start ">
-                      <h2 className="text-white text-[16px] md:text-[52px]">
+                      <h2 className="text-white text-[28px] leading-tight md:leading-0 md:text-[52px]">
                         <strong className="text-[#A8CF45] w-full font-semibold">
                           {slide.Title}
                         </strong>

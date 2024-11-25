@@ -229,26 +229,39 @@ const Navbar = () => {
     const isOpen = activeDropdown === link.id; // Check if the dropdown is active
 
     return (
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={isOpen ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-        transition={{ ease: "circOut", duration: 0.15 }}
-        className="absolute top-full left-0 mt-2 rounded-md shadow-lg bg-white/90 backdrop-blur-sm z-50"
+      <div
+        className="relative"
+        onMouseEnter={() => setActiveDropdown(link.id)}
+        onMouseLeave={() => setActiveDropdown(null)}
       >
-        <div className="py-1">
-          {link.children?.map((c) => (
-            <Link
-              key={c.id} // Now each child has a unique ID
-              href={c.href}
-              className="block px-4 py-2 text-sm text-black hover:bg-LG"
+        <AnimatePresence>
+          {isOpen && (
+            <motion.div
+              key={link.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 10 }}
+              transition={{ ease: "circOut", duration: 0.15 }}
+              className="absolute top-full left-0 mt-2 rounded-md shadow-lg bg-white/90 backdrop-blur-sm z-50"
             >
-              {c.title.replace(/-/g, " ")}
-            </Link>
-          ))}
-        </div>
-      </motion.div>
+              <div className="py-1">
+                {link.children?.map((c) => (
+                  <Link
+                    key={c.id} // Now each child has a unique ID
+                    href={c.href}
+                    className="block px-4 py-2 text-sm text-black hover:bg-LG"
+                  >
+                    {c.title.replace(/-/g, " ")}
+                  </Link>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
     );
   };
+
 
   // Show loading or error states
   if (isLoading) {
