@@ -12,6 +12,7 @@ const AboutUs = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  // Define custom order
   const customOrder = [
     "Haroon M. K. Lodhi",
     "Asif Ashfaq",
@@ -53,17 +54,22 @@ const AboutUs = () => {
 
         const data = await response.json();
 
+        // Log data for debugging
+        console.log("Fetched Team Members:", data.data);
+
         // Sort team members based on the custom order
         const sortedMembers = data.data.sort((a: any, b: any) => {
           const indexA = customOrder.indexOf(a.Name.trim());
           const indexB = customOrder.indexOf(b.Name.trim());
 
-          // If a name is not in the customOrder, place it at the end
           return (
             (indexA === -1 ? customOrder.length : indexA) -
             (indexB === -1 ? customOrder.length : indexB)
           );
         });
+
+        // Log sorted members for debugging
+        console.log("Sorted Team Members:", sortedMembers);
 
         setTeamMembers(sortedMembers);
       } catch (error) {
@@ -95,28 +101,28 @@ const AboutUs = () => {
                 key={index}
                 className="flex flex-col justify-center items-center"
               >
-                {/* Parent div for image and LinkedIn icon with relative positioning */}
                 <div className="relative w-full overflow-hidden rounded-md">
-                  <div className="w-[300px] h-[300px] overflow-hidden ">
+                  <div className="w-[300px] h-[300px] overflow-hidden">
                     <img
                       src={getValidImageUrl(member.Image.url)}
                       alt={member.Name}
-                      className="object-cover w-full h-full "
+                      className="object-cover w-full h-full"
                     />
                   </div>
 
-                  {/* LinkedIn icon positioned at the bottom-right corner */}
-                  <a
-                    href={member.LinkedIn}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="absolute bottom-4 right-4 bg-LG hover:bg-white p-2 rounded-full shadow-lg"
-                  >
-                    <FaLinkedin className="text-2xl text-white hover:text-LG transition-colors duration-300" />
-                  </a>
+                  {member.LinkedIn && (
+                    <a
+                      href={member.LinkedIn}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="absolute bottom-4 right-4 bg-LG hover:bg-white p-2 rounded-full shadow-lg"
+                      aria-label={`LinkedIn profile of ${member.Name}`}
+                    >
+                      <FaLinkedin className="text-2xl text-white hover:text-LG transition-colors duration-300" />
+                    </a>
+                  )}
                 </div>
 
-                {/* Text content for the team member */}
                 <div className="flex flex-col items-center justify-center text-white mt-4">
                   <h2 className="text-xl font-medium text-center whitespace-nowrap">
                     {member.Name}

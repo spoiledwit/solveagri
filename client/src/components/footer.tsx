@@ -226,7 +226,7 @@ const Footer = () => {
                 href={`/product/category/${category}`}
                 className="text-white hover:text-LG"
               >
-                {category}
+                {category.replace(/-/g, " ")}
               </Link>
             ))}
           </div>
