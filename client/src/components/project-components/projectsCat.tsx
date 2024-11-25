@@ -66,10 +66,7 @@ const ProjectsCat = () => {
           <AnimateToView className="flex gap-4 w-full">
             <div className="md:block hidden w-[100px] mt-3 ml-[-30px] h-[1px] bg-white" />
             <p className="text-white md:text-xl font-light">
-              Our project prioritizes livestock well-being, modernizing farming
-              practices, empowering farmers with training and resources, and
-              promoting resilience. Together, let's build a thriving livestock
-              community for a brighter future.
+            Our projects enhance livestock well-being, modernize farming, and empower farmers for a sustainable future.
             </p>
           </AnimateToView>
 
