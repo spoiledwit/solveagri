@@ -117,13 +117,7 @@ const ServiceCat = () => {
         <AnimateToView className="flex w-full gap-4">
           <div className="h-[1px] ml-[-30px] mt-3 w-[180px] bg-DG" />
           <p className="text-DG text-justify md:text-xl font-light">
-            We are committed to offering dependable, high-quality solutions,
-            services, and development projects that cater to all your livestock
-            and dairy needs, regardless of the size of your operations. Our
-            comprehensive range includes personalized solutions, expert
-            services, and training programs for sustainable milk and meat
-            production, empowering farmers, value chain partners, and processors
-            to thrive and maximize their profits.
+          We provide solutions for sustainable livestock and dairy production to help farmers and businesses succeed.
           </p>
         </AnimateToView>
 

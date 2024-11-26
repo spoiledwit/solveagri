@@ -91,8 +91,7 @@ const ProductCat = () => {
           <AnimateToView className="flex w-full gap-4">
             <div className="h-[1px] ml-[-30px] mt-3 w-[60px] bg-white" />
             <p className="text-white text-lg md:text-xl font-light">
-              Explore our carefully chosen featured products below, specifically
-              curated to meet all your essential livestock needs with ease.
+            Explore our top products, specially chosen to meet your livestock needs.
             </p>
           </AnimateToView>
 
