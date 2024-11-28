@@ -6,7 +6,7 @@ const Contact = () => {
   return (
     <div
       className="relative md:px-12 w-full flex flex-col  lg:flex-row h-auto justify-between bg-cover pt-32 bg-center pb-12"
-      style={{ backgroundImage: "url(/contactus/contactimg.jpeg)" }}
+      style={{ backgroundImage: "url(/contactus/client.jpeg)" }}
     >
       {/* Overlay for better text visibility */}
       <div className="absolute inset-0 bg-black bg-opacity-40"></div>

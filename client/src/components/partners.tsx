@@ -75,7 +75,7 @@ const Partners: React.FC = () => {
           <img
             src={image}
             alt={`partner ${index + 1}`}
-            className="object-contain h-40 mx-auto"
+            className="object-contain h-28 mx-auto"
           />
         </div>
       ))}

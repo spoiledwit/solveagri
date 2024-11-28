@@ -11,10 +11,12 @@ export default function ProjectCategoryPage() {
   const { projCategory } = useParams(); // Get the category from the route params
   const [projects, setProjects] = useState<Project[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Fetch projects based on the category
   useEffect(() => {
     const fetchProjects = async () => {
+      setIsLoading(true); // Start loading
       try {
         const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
         const path = "/api/projects";
@@ -47,6 +49,8 @@ export default function ProjectCategoryPage() {
         setProjects(data.data); // Store the fetched projects
       } catch (error: any) {
         setError(error.message);
+      } finally {
+        setIsLoading(false); // End loading
       }
     };
 
@@ -59,17 +63,25 @@ export default function ProjectCategoryPage() {
 
   return (
     <>
-    <div className="fixed w-full" style={{ zIndex: "999" }}>
-      <Navbar/>
-          
-      </div> 
-    <div className="w-full my-40 px-4 md:px-20 xl:px-20 grid gap-x-8 gap-y-16 grid-cols-1 md:grid-cols-4">
-      {projects.length === 0 && <div>No projects found for this category</div>}
-      {projects.map((project: Project) => (
-        //@ts-ignore
-        <ProjectCard key={project.projId} project={project} />
-      ))}
-    </div>
+      <div className="fixed w-full" style={{ zIndex: "999" }}>
+        <Navbar />
+      </div>
+      <div className="w-full my-40 px-4 md:px-20 xl:px-20 grid gap-x-8 gap-y-16 grid-cols-1 md:grid-cols-4 overflow-hidden">
+        {isLoading ? (
+         <div className="w-screen h-screen" >
+           <div className="flex justify-center relative right-18 ">
+            <div className=" w-10 h-10 border-4 border-blue-500 border-t-transparent border-solid rounded-full animate-spin"></div>
+          </div>
+         </div>
+        ) : projects.length === 0 ? (
+          <div>No projects found for this category</div>
+        ) : (
+          projects.map((project: Project) => (
+            //@ts-ignore
+          <ProjectCard key={project.projId} project={project} />
+          ))
+        )}
+      </div>
     </>
   );
 }
