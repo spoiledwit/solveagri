@@ -281,47 +281,41 @@ const AboutUs = () => {
 
       <div className="h-0.5 w-1/2 bg-LG self-center" />
 
-      <div className="flex flex-col items-center justify-center xl:px-40">
+      <div className="flex flex-col items-center justify-center ">
         <AnimateToView className="flex text-white flex-col mb-10">
           <h2 className="text-3xl font-medium text-center">Our Core Team</h2>
           <h3 className="mt-2">A winning team; Our recipie for success</h3>
         </AnimateToView>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-8 justify-between gap-16">
-          {team.map((member, index) => (
-            <AnimateToView
-              key={index}
-              className="flex flex-col justify-center items-center"
-            >
-              {/* Parent div for image and LinkedIn icon with relative positioning */}
-              <div className="relative w-full overflow-hidden rounded-xl border-2 border-transparent hover:border-[#A8CF45] transition-all duration-300">
-                <div className="w-[300px] h-[300px] rounded-xl overflow-hidden">
-                  <img src={member.img } className=" w-full h-full object-cover text-white text-[.8rem]" alt={`${member.Name}'s Image is not avaliable`}  />
-                </div>
-
-                {/* LinkedIn icon positioned at the bottom-right corner */}
-                <a
-                  href={member.LinkedIn}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="absolute bottom-4 right-4 bg-LG hover:bg-white p-2 rounded-full shadow-lg"
-                >
-                  <FaLinkedin className="text-2xl text-white hover:text-LG transition-colors duration-300" />
-                </a>
-              </div>
-
-              {/* Text content for the team member */}
-              <div className="flex flex-col items-center justify-center text-white mt-4">
-                <h2 className="text-xl font-medium text-center whitespace-nowrap">
-                  {member.Name}
-                </h2>
-                <p className="text-center text-[#A8CF45] whitespace-nowrap">
-                  {member.Designation}
-                </p>
-              </div>
-              
-            </AnimateToView>
-          ))}
-        </div>
+        <div className="flex flex-wrap justify-center gap-8 w-full">
+  {team.map((member, index) => (
+    <div key={index} className="flex flex-col items-center">
+      {/* Image Container */}
+      <div className="relative w-[400px] max-w-[350px] aspect-square overflow-hidden rounded-xl border-2 border-transparent hover:border-[#A8CF45] transition-all duration-300">
+        <img
+          src={member.img}
+          className="w-full h-full object-cover"
+          alt={`${member.Name}'s Image`}
+        />
+        {/* Properly Positioned LinkedIn Icon */}
+        {member.LinkedIn && (
+          <a
+            href={member.LinkedIn}
+            target="_blank"
+            rel="noreferrer"
+            className="absolute bottom-4 right-4 bg-LG hover:bg-white p-2 rounded-full shadow-lg"
+          >
+            <FaLinkedin className="text-2xl text-white hover:text-LG transition-colors duration-300" />
+          </a>
+        )}
+      </div>
+      {/* Member Details */}
+      <div className="mt-4 text-center">
+        <h2 className="text-xl font-medium text-white">{member.Name}</h2>
+        <p className="text-[#A8CF45]">{member.Designation}</p>
+      </div>
+    </div>
+  ))}
+</div>
       </div>
     </div>
   );
