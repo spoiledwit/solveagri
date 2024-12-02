@@ -55,6 +55,12 @@ const AboutUs = () => {
       LinkedIn:"https://www.linkedin.com/in/saadiahanif/"
     },
     {
+      Name:"Dr Ayesha Sadiq",
+      Designation:"Nutrition Specialist",
+      img : "/aboutus/team/ayesha.jpeg",
+      LinkedIn:"https://www.linkedin.com/company/solveagripak"
+    },
+    {
       Name:"Minahal Mubashar",
       Designation:"Project Development",
       img : "/aboutus/team/minahil.jpg",
