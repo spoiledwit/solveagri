@@ -48,11 +48,17 @@ const AboutUs = () => {
       img : "/aboutus/team/rasheed.jpg",
       LinkedIn:""
     },
+    // {
+    //   Name:"Saadia Hanif",
+    //   Designation:"Projects Specialist",
+    //   img : "/aboutus/team/sadia.jpg",
+    //   LinkedIn:"https://www.linkedin.com/in/saadiahanif/"
+    // },
     {
-      Name:"Saadia Hanif",
-      Designation:"Projects Specialist",
-      img : "/aboutus/team/sadia.jpg",
-      LinkedIn:"https://www.linkedin.com/in/saadiahanif/"
+      Name:"Dr Ayesha Sadiq",
+      Designation:"Nutrition Specialist",
+      img : "/aboutus/team/ayesha.jpeg",
+      LinkedIn:"https://www.linkedin.com/company/solveagripak"
     },
     {
       Name:"Minahal Mubashar",
