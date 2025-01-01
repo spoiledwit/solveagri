@@ -9,7 +9,7 @@ WORKDIR /opt/server
 COPY package*.json ./
 
 # Install dependencies using npm
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # Copy project files
 COPY . .
